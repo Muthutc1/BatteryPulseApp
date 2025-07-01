@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BatteryPulseApp.MainPage"
+             Title="Battery Pulse View"
+             BackgroundColor="{AppThemeBinding Light='White', Dark='#121212'}">
+
+    <!--Main view / Parent view -->
+    <VerticalStackLayout Padding="20" Spacing="30"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand">
+
+
+        <!-- Circular Battery Indicator bar view -->
+        <Grid WidthRequest="180" HeightRequest="180">
+            <!-- Animated Glow layer -->
+            <Ellipse x:Name="GlowEllipse"
+                     StrokeThickness="0"
+                     WidthRequest="180" HeightRequest="180">
+                <Ellipse.Fill>
+                    <RadialGradientBrush x:Name="GlowBrush" Center="0.5,0.5" Radius="0.6">
+                        <GradientStop Color="#00E5FF" Offset="0"/>
+                        <GradientStop Color="Transparent" Offset="1"/>
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+
+            <!-- Inner circle border -->
+            <Frame BorderColor="#00E5FF"
+                   CornerRadius="90"
+                   WidthRequest="180" HeightRequest="180"
+                   BackgroundColor="Transparent">
+                <Label Text="{Binding BatteryLevel, StringFormat='{0}%'}"
+                       FontSize="36" FontAttributes="Bold"
+                       HorizontalOptions="Center" VerticalOptions="Center"
+                       TextColor="{AppThemeBinding Light='Black', Dark='White'}"/>
+            </Frame>
+        </Grid>
+
+
+        <!-- Battery Fill Bar -->
+        <Frame x:Name="BatteryFrame"
+               BorderColor="#BBB"
+               CornerRadius="6"
+               WidthRequest="300"
+               HeightRequest="70"
+               VerticalOptions="CenterAndExpand"
+               Padding="0" IsVisible="False"
+               BackgroundColor="{AppThemeBinding Light='#F0F0F0', Dark='#121212'}">
+            <Grid>
+                <!--Battery box view-->
+                <BoxView x:Name="BatteryFill"
+                         BackgroundColor="#00E5FF"
+                         HorizontalOptions="Start"
+                         VerticalOptions="Fill"
+                         WidthRequest="0"
+                         HeightRequest="70">
+                    <BoxView.Shadow>
+                        <Shadow Brush="#00E5FF" Radius="12" Offset="0,0" Opacity="0" />
+                    </BoxView.Shadow>
+                </BoxView>
+                <!--Battery Label text-->
+                <Label Text="{Binding BatteryLevel, StringFormat='{0}%'}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       FontSize="24"
+                       TextColor="{AppThemeBinding Light='Black', Dark='White'}" />
+            </Grid>
+        </Frame>
+
+        <!--Show/hide button text view--> 
+        <Label Text="Show Battery View" x:Name="showbatteryText" TextColor="{AppThemeBinding Light='Black', Dark='White'}"
+               HorizontalOptions="CenterAndExpand">
+            <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+            </Label.GestureRecognizers>
+        </Label>
+
+
+
+        <!-- Battery info Grid view -->
+        <Frame BackgroundColor="{AppThemeBinding Light='#EFEFEF', Dark='#1F1F1F'}"
+               VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+               CornerRadius="10" Padding="15">
+            <Grid ColumnDefinitions="Auto,30, *" RowDefinitions="*,*,*,*" RowSpacing="15">
+
+                <Label Text="🔋 Battery Charging Level:" FontSize="Small" Grid.Column="0"/>
+                <Label Text="{Binding BatteryChargingLevel}"
+                       TextColor="{AppThemeBinding Light='Black', Dark='White'}" Grid.Column="2"/>
+
+                <Label Text="⚡ Charging: " FontSize="Small" Grid.Row="1" Grid.Column="0"/>
+                <Label Text="{Binding ChargingStatus}" TextColor="{AppThemeBinding Light='Black', Dark='White'}" Grid.Column="2" Grid.Row="1"/>
+
+                <Label Text="🛡️ Battery Saver: " FontSize="Small" Grid.Row="2" Grid.Column="0"/>
+                <Label Text="{Binding BatterySaverStatus}" TextColor="{AppThemeBinding Light='Black', Dark='White'}" Grid.Column="2" Grid.Row="2"/>
+
+                <Label Text="📶 Battery State: " FontSize="Small" Grid.Row="3" Grid.Column="0"/>
+                <Label Text="{Binding BatteryStateText}" TextColor="{AppThemeBinding Light='Black', Dark='White'}" Grid.Column="2" Grid.Row="3"/>
+            </Grid>
+        </Frame>
+
+    </VerticalStackLayout>
+</ContentPage>
