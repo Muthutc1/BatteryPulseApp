@@ -21,7 +21,7 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>BatteryPulseApp</ApplicationTitle>
+		<ApplicationTitle>BatteryPulse</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.batterypulseapp</ApplicationId>
